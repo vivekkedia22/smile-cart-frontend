@@ -2,12 +2,13 @@ import PageNotFound from "components/common/PageNotFound";
 import Product from "components/Product/index";
 import ProductList from "components/ProductList/index";
 import { Route, Switch, Redirect } from "react-router-dom";
+import routes from "routes";
 
 const App = () => (
   <Switch>
-    <Redirect exact from="/" to="/products" />
-    <Route exact component={Product} path="/products/:slug" />
-    <Route exact component={ProductList} path="/products" />
+    <Redirect exact from={routes.root} to={routes.products.index} />
+    <Route exact component={Product} path={routes.products.show} />
+    <Route exact component={ProductList} path={routes.products.index} />
     <Route exact component={PageNotFound} path="*" />
   </Switch>
 );
