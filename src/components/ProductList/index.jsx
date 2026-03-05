@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import productsApi from "apis/products";
 import { Header, PageLoader } from "components/common";
@@ -19,8 +19,7 @@ const ProductList = () => {
     cartItems: store.cartItems,
   }));
   const debouncedSearchKey = useDebounce(searchKey);
-  console.log("re-rendered");
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const { products } = await productsApi.fetch({
         searchTerm: debouncedSearchKey,
@@ -31,11 +30,11 @@ const ProductList = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [debouncedSearchKey]);
 
   useEffect(() => {
     fetchProducts();
-  }, [debouncedSearchKey]);
+  }, [fetchProducts]);
 
   if (isLoading) {
     return <PageLoader />;

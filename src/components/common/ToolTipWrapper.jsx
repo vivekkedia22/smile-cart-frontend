@@ -1,4 +1,3 @@
-// src/components/commons/TooltipWrapper.jsx
 import { Tooltip } from "neetoui";
 
 const TooltipWrapper = ({ showTooltip, children, ...tooltipProps }) => {
