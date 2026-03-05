@@ -1,4 +1,5 @@
 import Cart from "components/Cart";
+import Checkout from "components/Checkout";
 import PageNotFound from "components/common/PageNotFound";
 import Product from "components/Product/index";
 import ProductList from "components/ProductList/index";
@@ -11,6 +12,7 @@ const App = () => (
     <Route exact component={Product} path={routes.products.show} />
     <Route exact component={ProductList} path={routes.products.index} />
     <Route exact component={Cart} path={routes.cart} />
+    <Route exact component={Checkout} path={routes.checkout} />
     <Route exact component={PageNotFound} path="*" />
   </Switch>
 );
