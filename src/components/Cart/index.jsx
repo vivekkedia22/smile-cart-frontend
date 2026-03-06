@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import { Header, PageLoader } from "components/common/index";
 import { MRP, OFFER_PRICE } from "components/constants";
 import { cartTotalOf } from "components/utils";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 import i18n from "i18next";
-import { NoData, Toastr } from "neetoui";
+import { NoData } from "neetoui";
 import { isEmpty, keys } from "ramda";
 import useCartItemsStore from "stores/useCartItemsStore";
 import withTitle from "utils/withTitle";
@@ -14,43 +12,11 @@ import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const slugs = useCartItemsStore(store => keys(store.cartItems));
 
-  const { cartItems, setSelectedQuantity } = useCartItemsStore.pick();
-
-  const slugs = keys(cartItems);
-  const totalMrp = cartTotalOf(products, MRP);
+  const { data: products = [], isLoading } = useFetchCartProducts(slugs);
   const totalOfferPrice = cartTotalOf(products, OFFER_PRICE);
-
-  const fetchCartProducts = async () => {
-    try {
-      const responses = await Promise.all(
-        slugs.map(slug => productsApi.show(slug))
-      );
-      setProducts(responses);
-      const slugsToRemove = [];
-      responses.forEach(({ availableQuantity, name, slug }) => {
-        if (availableQuantity >= cartItems[slug]) return;
-        setSelectedQuantity(slug, availableQuantity);
-        if (availableQuantity === 0) {
-          slugsToRemove.push(slug);
-          Toastr.error(
-            `${name} is no longer available and has been removed from the cart`,
-            { autoClose: 2000 }
-          );
-        }
-      });
-    } catch (error) {
-      console.log("An error occurred:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCartProducts();
-  }, [cartItems]);
+  const totalMrp = cartTotalOf(products, MRP);
 
   if (isLoading) {
     return <PageLoader />;
