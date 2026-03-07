@@ -35,6 +35,7 @@ export const useFetchCartProducts = slugs => {
 
         setSelectedQuantity(slug, availableQuantity);
         if (availableQuantity === 0) {
+          console.log("this is the product", name);
           Toastr.error(t("product.error.removedFromCart", { name }), {
             autoClose: 2000,
           });
