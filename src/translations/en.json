@@ -11,9 +11,6 @@
   "cart": {
     "title": "My Cart"
   },
-  "error": {
-    "removedFromCart": "{{name}} removed from the cart"
-  },
   "checkout": "Checkout",
   "contact": "Contact",
   "email": "Email",
@@ -45,5 +42,13 @@
     "stateRequired": "State is required",
     "zipCodeRequired": "Zip code is required",
     "emailInvalid": "Email address is invalid"
+  },
+  "confirmOrder": "Confirm order",
+  "error": {
+    "noInternetConnection": "No Internet Connection",
+    "networkError": "Network Error"
+  },
+  "order": {
+    "successfullyPlaced": "Order has been successfully placed"
   }
 }
