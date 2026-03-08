@@ -1,3 +1,5 @@
+import React from "react";
+
 import { AddToCart } from "components/common/index";
 import { Typography } from "neetoui";
 import { Link } from "react-router-dom";
@@ -24,4 +26,4 @@ const ProductListItem = ({
   </Link>
 );
 
-export default ProductListItem;
+export default React.memo(ProductListItem);

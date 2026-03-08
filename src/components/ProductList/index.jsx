@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { Header, PageLoader } from "components/common";
 import { useFetchProducts } from "hooks/reactQuery/useProductsApi";
